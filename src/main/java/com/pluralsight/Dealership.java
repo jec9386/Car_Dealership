@@ -81,4 +81,13 @@ public class Dealership {
         //inventory.remove(vehicle);
     }
 
+//    @Override
+//    public String toString() {
+//
+//        return "Name: " + name + " Phone No. " + phone + "\n" + inventory;
+//
+//    }
+
+
+
 }
