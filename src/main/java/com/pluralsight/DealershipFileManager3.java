@@ -5,14 +5,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class DealershipFileManager {
+public class DealershipFileManager3 {
 
+    String fileName = "inventory.csv";//specify which file to read from
+
+
+    public DealershipFileManager3(String fileName) {
+        this.fileName = fileName;
+    }
 
     //method-----------------------------------------------------------------------------------------------
-    public static Dealership getDealership(){//return a Dealership object
+    public Dealership getDealership(){
+        //return a Dealership object
         // Declare a Dealership variable
         Dealership dealership = null;//placeholder for Dealership object
-        String fileName = "inventory.csv";//specify which file to read from
+
 
         // Open file with FileReader and BufferedReader is a helper that reads through each line of the file
         try(FileReader fileReader = new FileReader(fileName); BufferedReader reader = new BufferedReader(fileReader)){
@@ -50,9 +57,9 @@ public class DealershipFileManager {
         return dealership;//built dealership object now you can view it
     }
 
-//    public static void saveDealership(dealership){
-//
-//    }
+    public void saveDealership(Dealership dealership){
+//do the save
+    }
 
 
 
