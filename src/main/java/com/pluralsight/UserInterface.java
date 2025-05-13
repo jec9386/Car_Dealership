@@ -6,14 +6,14 @@ import java.util.List;
 
 public class UserInterface {
 
-    private static Dealership dealership;//create a placeholder
+    private Dealership dealership;//create a placeholder
 
-    private static void init() {
+    private void init() {
          DealershipFileManager fileManager = new DealershipFileManager("inventory.csv");
          dealership = fileManager.getDealership();
     }
 
-    public static void display(){
+    public void display(){
         init();//method to load the dealership from the file
 
         do{
@@ -23,30 +23,30 @@ public class UserInterface {
                 case 1:
                     processGetByPriceRequest();
                     break;
-                case 2:
-                    processGetByMakeModelRequest();
-                    break;
-                case 3:
-                    processGetByYearRequest();
-                    break;
-                case 4:
-                    processGetByColorRequest();
-                    break;
-                case 5:
-                    processGetByMileageRequest();
-                    break;
-                case 6:
-                    processGetByVehicleTypeRequest();
-                    break;
-                case 7:
-                    processGetAllVehicleRequest();
-                    break;
-                case 8:
-                    processAddVehiclesRequest();
-                    break;
-                case 9:
-                    processRemoveVehicleRequest();
-                    break;
+//                case 2:
+//                    processGetByMakeModelRequest();
+//                    break;
+//                case 3:
+//                    processGetByYearRequest();
+//                    break;
+//                case 4:
+//                    processGetByColorRequest();
+//                    break;
+//                case 5:
+//                    processGetByMileageRequest();
+//                    break;
+//                case 6:
+//                    processGetByVehicleTypeRequest();
+//                    break;
+//                case 7:
+//                    processGetAllVehicleRequest();
+//                    break;
+//                case 8:
+//                    processAddVehiclesRequest();
+//                    break;
+//                case 9:
+//                    processRemoveVehicleRequest();
+//                    break;
                 case 0:
                     System.out.println("Goodbye!");
                     return; // Exit
@@ -85,7 +85,7 @@ public class UserInterface {
         }
     }
 
-    public static void processGetByPriceRequest(){
+    public void processGetByPriceRequest(){
         Double minPrice = Console.promptForDouble("Please enter the min price of car: ");
 
         Double maxPrice = Console.promptForDouble("Please enter the max price of car: ");
