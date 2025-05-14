@@ -90,17 +90,19 @@ public class Vehicle {
         this.price = price;
     }
 
+    public String toCSV() {
+        return vin + "|" + year + "|" + make + "|" + model + "|" + vehicleType + "|" + color + "|" + odometer + "|" + price;
+    }
 
     @Override
     public String toString() {
-        return "Vehicle Info: " +
-                "vin=" + vin +
-                ", year=" + year +
-                ", make='" + make + '\'' +
-                ", model='" + model + '\'' +
-                ", vehicleType='" + vehicleType + '\'' +
-                ", color='" + color + '\'' +
-                ", odometer=" + odometer +
-                ", price=" + price;
+        return  "VIN: " + vin +
+                "| Year: " + year +
+                "| Make: " + make +
+                "| Model: " + model +
+                "| vehicleType: " + vehicleType +
+                "| Color: " + color +
+                "| Odometer: " + odometer +
+                "| Price: " + price;
     }
 }

@@ -43,6 +43,10 @@ public class Dealership {
         this.phone = phone;
     }
 
+    public ArrayList<Vehicle> getInventory() {
+        return inventory;
+    }
+
     //methods---------------------------------------------------------------------------------------------------------
     public List<Vehicle> getVehicleByPrice(double min, double max){
         ArrayList<Vehicle> price = new ArrayList<>();
@@ -55,22 +59,61 @@ public class Dealership {
     }
 
     public List<Vehicle> getVehicleByMakeModel(String make, String model){
-        return null;
+        ArrayList<Vehicle> makeModel = new ArrayList<>();
+        for(Vehicle m: inventory){
+            if(m.getMake().equalsIgnoreCase(make) && m.getModel().equalsIgnoreCase(model)){
+                makeModel.add(m);
+            }
+        }
+        return makeModel;
     }
 
     public List<Vehicle> getVehicleByYear(double min, double max){
-        return null;
+        ArrayList<Vehicle> year = new ArrayList<>();
+        for(Vehicle y: inventory){
+            if(y.getYear() >= min && y.getYear()<= max){
+                year.add(y);
+            }
+        }
+        return year;
     }
 
     public List<Vehicle> getVehicleByColor(String color){
-        return null;
+        ArrayList<Vehicle> vehicleColor = new ArrayList<>();
+        for(Vehicle c: inventory){
+            if(c.getColor().equalsIgnoreCase(color)){
+                vehicleColor.add(c);
+            }
+        }
+        return vehicleColor;
     }
 
     public List<Vehicle> getVehicleByMileage(double min, double max){
-        return null;
+        ArrayList<Vehicle> mileage = new ArrayList<>();
+        for(Vehicle m: inventory){
+            if(m.getOdometer() >= min && m.getOdometer()<= max){
+                mileage.add(m);
+            }
+        }
+        return mileage;
     }
 
-    public List<Vehicle> getVehicleByType(double min, double max){
+    public List<Vehicle> getVehicleByType(String type){
+        ArrayList<Vehicle> vehicleType = new ArrayList<>();
+        for(Vehicle t: inventory){
+            if(t.getVehicleType().equalsIgnoreCase(type)){
+                vehicleType.add(t);
+            }
+        }
+        return vehicleType;
+    }
+
+    public Vehicle getVehicleByVin(int vin){
+        for(Vehicle v: inventory){
+            if (v.getVin() == vin){
+                return v;
+            }
+        }
         return null;
     }
 
@@ -82,17 +125,32 @@ public class Dealership {
         inventory.add(vehicle);
     }
 
-
     public void removeVehicle(Vehicle vehicle){
-        //inventory.remove(vehicle);
+        inventory.remove(vehicle);
     }
 
-//    @Override
-//    public String toString() {
-//
-//        return "Name: " + name + " Phone No. " + phone + "\n" + inventory;
-//
+
+
+//    INITIAL TRIAL public boolean removeVehicleByVin(int vin){
+//        for (Vehicle vehicle : inventory) {
+//            if (vehicle.getVin() == vin) {
+//                inventory.remove(vehicle);
+//                return true; // success
+//            }
+//        }
+//        return false;
 //    }
+
+    @Override
+    public String toString() {
+
+        return "Name: " + name + "| Address: " + address + "| Phone Number: " + phone + "\n" + inventory;
+
+    }
+
+    public String toCSV() {
+        return name + "|" + address + "|" + phone;
+    }
 
 
 

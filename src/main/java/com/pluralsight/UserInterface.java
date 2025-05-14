@@ -7,6 +7,7 @@ import java.util.List;
 public class UserInterface {
 
     private Dealership dealership;//create a placeholder
+    private DealershipFileManager fileManager;
 
     private void init() {
          DealershipFileManager fileManager = new DealershipFileManager("inventory.csv");
@@ -23,35 +24,41 @@ public class UserInterface {
                 case 1:
                     processGetByPriceRequest();
                     break;
-//                case 2:
-//                    processGetByMakeModelRequest();
-//                    break;
-//                case 3:
-//                    processGetByYearRequest();
-//                    break;
-//                case 4:
-//                    processGetByColorRequest();
-//                    break;
-//                case 5:
-//                    processGetByMileageRequest();
-//                    break;
-//                case 6:
-//                    processGetByVehicleTypeRequest();
-//                    break;
-//                case 7:
-//                    processGetAllVehicleRequest();
-//                    break;
-//                case 8:
-//                    processAddVehiclesRequest();
-//                    break;
-//                case 9:
-//                    processRemoveVehicleRequest();
-//                    break;
+                case 2:
+                    processGetByMakeModelRequest();
+                    break;
+                case 3:
+                    processGetByYearRequest();
+                    break;
+                case 4:
+                    processGetByColorRequest();
+                    break;
+                case 5:
+                    processGetByMileageRequest();
+                    break;
+                case 6:
+                    processGetByVehicleTypeRequest();
+                    break;
+                case 7:
+                    processGetAllVehicleRequest();
+                    break;
+                case 8:
+                    processAddVehiclesRequest();
+                    break;
+                case 9:
+                    processRemoveVehicleRequest();
+                    break;
                 case 0:
                     System.out.println("Goodbye!");
                     return; // Exit
                 default:
                     System.out.println("Invalid option. Try again.");
+            }
+
+            try {
+                Thread.sleep(3000); // <--- Add pause here
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
 
         } while (true);
@@ -92,45 +99,100 @@ public class UserInterface {
 
         List<Vehicle> v = dealership.getVehicleByPrice(minPrice, maxPrice);
 
-        System.out.println(v.toString());
+        displayVehicles(v);
 
     }
 
-//    public void processGetByMakeModelRequest(){
-//
-//    }
-//
-//    public void processGetByYearRequest(){
-//
-//    }
-//
-//    public void processGetByColorRequest(){
-//
-//    }
-//
-//    public void processGetByMileageRequest(){
-//
-//    }
-//
-//    public void processGetByVehicleTypeRequest(){
-//
-//    }
-//
+    public void processGetByMakeModelRequest(){
+        String make = Console.promptForString("Please enter the make of car: ");
+
+        String model = Console.promptForString("Please enter the model of car: ");
+
+        List<Vehicle> v = dealership.getVehicleByMakeModel(make, model);
+
+        displayVehicles(v);
+    }
+
+    public void processGetByYearRequest(){
+        Integer minYear = Console.promptForInt("Please enter the min year of car: ");
+
+        Integer maxYear = Console.promptForInt("Please enter the max year of car: ");
+
+        List<Vehicle> v = dealership.getVehicleByYear(minYear, maxYear);
+
+        displayVehicles(v);
+    }
+
+    public void processGetByColorRequest(){
+        String color = Console.promptForString("Please enter the color of car: ");
+
+        List<Vehicle> v = dealership.getVehicleByColor(color);
+
+        displayVehicles(v);
+    }
+
+    public void processGetByMileageRequest(){
+        Integer minMileage = Console.promptForInt("Please enter the min mileage of car: ");
+
+        Integer maxMileage = Console.promptForInt("Please enter the max mileage of car: ");
+
+        List<Vehicle> v = dealership.getVehicleByMileage(minMileage, maxMileage);
+
+        displayVehicles(v);
+    }
+
+    public void processGetByVehicleTypeRequest(){
+        String type = Console.promptForString("Please enter the type of car: ");
+
+        List<Vehicle> v = dealership.getVehicleByType(type);
+
+        displayVehicles(v);
+    }
+
     public void processGetAllVehicleRequest(){
         List<Vehicle> allVehicles = dealership.getAllVehicles();
         displayVehicles(allVehicles);
     }
-//
-//    public void processAddVehiclesRequest(){
-//
-//    }
-//
-//    public void processRemoveVehicleRequest(){
-//
-//    }
-//
-//
-//
-//
-//
+
+    public void processAddVehiclesRequest(){
+        int vin = Console.promptForInt("Enter VIN: ");
+        int year = Console.promptForInt("Enter year: ");
+        String make = Console.promptForString("Enter make: ");
+        String model = Console.promptForString("Enter model: ");
+        String type = Console.promptForString("Enter type: ");
+        String color = Console.promptForString("Enter color: ");
+        int odometer = Console.promptForInt("Enter odometer reading: ");
+        double price = Console.promptForDouble("Enter price: ");
+
+        Vehicle newVehicle = new Vehicle(vin, year, make, model, type, color, odometer, price);
+        dealership.addVehicle(newVehicle);
+
+        System.out.println("Vehicle added and saved successfully!");
+
+        fileManager = new DealershipFileManager("inventory.csv");
+        fileManager.saveDealership(dealership);
+    }
+
+    public void processRemoveVehicleRequest(){
+        int vin = Console.promptForInt("Enter the VIN of the vehicle to remove: ");
+
+        Vehicle v = dealership.getVehicleByVin(vin);
+
+        if(v != null){
+            //remove here.
+            dealership.removeVehicle(v);
+            System.out.println("Vehicle removed successfully.");
+            fileManager = new DealershipFileManager("inventory.csv");
+            fileManager.saveDealership(dealership);
+        }
+        else{
+            System.out.println("No vehicle found with VIN: " + vin);
+        }
+
+    }
+
+
+
+
+
 }
